@@ -1,5 +1,7 @@
 # Nexa Website
 
+The Nexa Templates deployment is a public **Preview** for testing this template. Its sample website is fictional; creating a website gives the visitor an isolated site and private editor link for testing editing, publishing and enquiries. The organization is for template development, not customer records. `vars.PREVIEW_MODE` is `"true"` in this repository; set it to `"false"` in a customer copy and deploy that copy to the customer's own account. Preview labels do not change draft or enquiry permissions. Hosting uses the published Cloudflare Worker, not GitHub Pages.
+
 A working **Astro** website template with a small page editor, private drafts, publishing, and a private contact enquiry inbox. The example is an original, fictional architecture studio; replace its content with your own.
 
 [Try the website](https://nexa-website-template.nexa-templates.workers.dev/) · [Public template repository](https://github.com/nexa-templates/website)

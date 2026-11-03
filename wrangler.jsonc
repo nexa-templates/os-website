@@ -5,6 +5,7 @@
   "compatibility_date": "2026-11-03",
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
+  "vars": { "PREVIEW_MODE": "true" },
   "durable_objects": { "bindings": [{ "name": "SITES", "class_name": "Website" }] },
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Website"] }],
   "ratelimits": [

@@ -1,7 +1,11 @@
+---
+import { env } from 'cloudflare:workers';
+---
 <!doctype html>
 <html lang="en" data-theme="dark">
   <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex, nofollow" /><title>Website editor · Nexa</title><link rel="icon" href="/favicon.svg" /><link rel="stylesheet" href="/styles.css" /></head>
   <body class="editor-body">
+    {env.PREVIEW_MODE === 'true' && <aside class="demo-bar"><strong>Preview</strong><span>Your own test website</span></aside>}
     <header class="editor-header"><a class="brand" href="/"><span class="brand-symbol" aria-hidden="true">n<span>↗</span></span>Nexa <span class="muted">Website</span></a><div id="editor-actions" hidden><span id="save-status" role="status">Loading…</span><button id="preview">Preview draft</button><button id="save">Save draft</button><button id="publish" class="primary">Publish</button></div></header>
     <p id="notice" role="status"></p>
     <main id="start" class="editor-start"><p class="eyebrow">A small home for your next big idea</p><h1>Your website, your words.</h1><p>Edit pages, publish when you’re ready, and keep enquiries in one place.</p><button id="create" class="primary">Create your website ↗</button><div id="saved-sites"></div><p class="muted small">Already have an editor link? Open that full private link to continue.</p></main>

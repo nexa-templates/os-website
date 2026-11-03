@@ -1,5 +1,7 @@
 ---
 import { markdown } from '../lib/markdown.js';
+import { env } from 'cloudflare:workers';
+const templatePreview = env.PREVIEW_MODE === 'true';
 const { document: site, page, base = '', siteID = '', demo = false, preview = false } = Astro.props;
 const href = slug => preview ? '#' : (demo && !slug ? '/' : `${base}/${slug}`);
 const canonical = new URL(href(page.slug), Astro.url.origin).href;
@@ -15,7 +17,8 @@ const canonical = new URL(href(page.slug), Astro.url.origin).href;
   </head>
   <body class="public-site">
     <a class="skip" href="#main">Skip to content</a>
-    {demo && <aside class="demo-bar"><span><strong>Nexa Website</strong><span class="demo-detail"> · A working Astro template with fictional content</span></span><button data-create>Create your website <span aria-hidden="true">↗</span></button></aside>}
+    {demo && <aside class="demo-bar"><span><strong>{templatePreview ? 'Preview' : 'Nexa Website'}</strong><span class="demo-detail"> · Sample website</span></span><button data-create>Create your website <span aria-hidden="true">↗</span></button></aside>}
+    {templatePreview && !demo && <aside class="demo-bar"><strong>Preview</strong><span>Test website</span></aside>}
     {preview && <aside class="demo-bar"><strong>Draft preview</strong><span>Links and contact submissions are disabled.</span></aside>}
     <header class="site-header wrap">
       <a class="brand" href={href('')}><span class="brand-symbol" aria-hidden="true">n<span>↗</span></span>{site.name}<span class="brand-period">.</span></a>

@@ -4,7 +4,7 @@ export { Website } from './lib/storage.js';
 
 async function api(request, env) {
   const url = new URL(request.url), path = url.pathname;
-  if (path === '/health') return json({ service: 'nexa-website', framework: 'Astro' });
+  if (path === '/health') return json({ service: 'nexa-website', framework: 'Astro', preview: env.PREVIEW_MODE === 'true' });
   if (!sameOrigin(request)) return fail('Use this website’s own origin.', 403);
   if (!['GET', 'POST', 'PUT', 'DELETE'].includes(request.method)) return fail('Method not allowed.', 405);
   let body;
@@ -34,6 +34,7 @@ export default {
     catch { response = fail('Temporarily unavailable. Please try again.', 503); }
     response = new Response(response.body, response);
     response.headers.set('cache-control', 'no-store');
+    if (env.PREVIEW_MODE === 'true') response.headers.set('x-robots-tag', 'noindex, nofollow');
     response.headers.set('referrer-policy', 'no-referrer');
     response.headers.set('x-content-type-options', 'nosniff');
     response.headers.set('content-security-policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-src 'self'; base-uri 'none'; frame-ancestors 'self'; form-action 'self'");

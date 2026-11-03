@@ -1,0 +1,10 @@
+---
+import SitePage from '../components/SitePage.astro';
+import { sample } from '../lib/content.js';
+import { env } from 'cloudflare:workers';
+import NotFound from '../components/NotFound.astro';
+const primary = env.SITE_ID;
+const site = primary && /^[a-f0-9]{32}$/.test(primary) ? await env.SITES.getByName(primary).readPublic() : null;
+if (primary && !site) Astro.response.status = 404;
+---
+{primary ? site ? <SitePage document={site.document} page={site.document.pages[0]} siteID={primary} /> : <NotFound /> : <SitePage document={sample} page={sample.pages[0]} base="/demo" demo />}

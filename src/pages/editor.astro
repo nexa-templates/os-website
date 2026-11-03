@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex, nofollow" /><title>Website editor · Nexa</title><link rel="icon" href="/favicon.svg" /><link rel="stylesheet" href="/styles.css" /></head>
+  <body class="editor-body">
+    <header class="editor-header"><a class="brand" href="/"><span class="brand-symbol" aria-hidden="true">n<span>↗</span></span>Nexa <span class="muted">Website</span></a><div id="editor-actions" hidden><span id="save-status" role="status">Loading…</span><button id="preview">Preview draft</button><button id="save">Save draft</button><button id="publish" class="primary">Publish</button></div></header>
+    <p id="notice" role="status"></p>
+    <main id="start" class="editor-start"><p class="eyebrow">A small home for your next big idea</p><h1>Your website, your words.</h1><p>Edit pages, publish when you’re ready, and keep enquiries in one place.</p><button id="create" class="primary">Create your website ↗</button><div id="saved-sites"></div><p class="muted small">Already have an editor link? Open that full private link to continue.</p></main>
+    <main id="workspace" class="editor-workspace" hidden>
+      <aside class="editor-sidebar"><div><p class="eyebrow">Your website</p><h2 id="website-name"></h2><a id="live-link" target="_blank" rel="noopener noreferrer" hidden>View published website ↗</a></div><div><div class="section-label"><h3>Pages</h3><button id="add-page" aria-label="Add page">+</button></div><nav id="page-list" aria-label="Website pages"></nav></div><nav class="editor-navigation" aria-label="Website tools"><button id="settings-tab">Settings</button><button id="inbox-tab">Enquiries <span id="inbox-count"></span></button></nav><p class="sidebar-note">Save keeps changes private.<br />Publish puts them on your website.</p></aside>
+      <section class="editor-main">
+        <section id="page-panel"><div class="panel-heading"><div><p class="eyebrow">Page content</p><h1 id="page-heading">Home</h1></div><div><button id="move-page" aria-label="Move page earlier">Move up</button><button id="remove-page" class="danger">Delete page</button></div></div>
+          <form id="page-form"><fieldset>
+            <div class="field-pair"><label>Navigation title<input name="title" maxlength="60" required /></label><label>Page URL<input name="slug" maxlength="48" pattern="[a-z0-9]+(-[a-z0-9]+)*" /><span class="hint">Lowercase words separated by hyphens.</span></label></div>
+            <label>Eyebrow<input name="eyebrow" maxlength="120" /><span class="hint">A short introduction above the heading.</span></label>
+            <label>Headline<textarea name="headline" rows="2" maxlength="160" required /></label>
+            <label>Summary<textarea name="summary" rows="3" maxlength="500" /><span class="hint">Also used as the page’s search description.</span></label>
+            <label>Page content<textarea name="body" class="markdown-input" rows="12" maxlength="20000" /><span class="hint">Markdown: ## Heading, **bold**, lists, and links. Images and HTML widgets are not supported.</span></label>
+          </fieldset></form>
+        </section>
+        <section id="settings-panel" hidden><div class="panel-heading"><div><p class="eyebrow">Make it yours</p><h1>Website settings</h1></div></div><form id="settings-form"><fieldset><label>Website name<input name="name" maxlength="80" required /></label><label>Tagline<input name="tagline" maxlength="160" /></label><label>Public email address<input name="email" type="email" maxlength="200" /><span class="hint">Optional. Shown in the footer. Enquiries are stored here; no email notifications are sent.</span></label><fieldset class="theme-options"><legend>Website appearance</legend><label><input type="radio" name="theme" value="dark" />Dark</label><label><input type="radio" name="theme" value="light" />Light</label></fieldset></fieldset></form>
+          <section class="settings-section"><h2>Your private editor link</h2><p>Anyone with this link can edit, publish, read enquiries, or delete this website. Keep a copy so you can return on another device.</p><button id="copy-editor">Copy editor link</button><span id="copy-status" role="status"></span></section>
+          <section class="settings-section"><h2>Content backup</h2><p>Export your current content or restore a content file. Backups contain pages and settings, without your editor key or enquiries.</p><button id="export">Export content</button><label class="button file-button">Import content<input id="import" type="file" accept=".json,application/json" /></label></section>
+          <section class="settings-section"><h2>Publishing</h2><p id="publish-detail"></p><button id="unpublish">Unpublish website</button></section><section class="settings-section"><h2>Delete website</h2><p>This permanently removes pages and enquiries.</p><button id="delete-site" class="danger">Delete website</button></section>
+        </section>
+        <section id="inbox-panel" hidden><div class="panel-heading"><div><p class="eyebrow">Contact form</p><h1>Enquiries</h1></div><button id="refresh-inbox">Refresh enquiries</button></div><p class="muted">Messages submitted through your published website. Replies open in your email app.</p><div id="messages"></div></section>
+        <div id="recovery" hidden><p>Your local changes have been kept. Export them before reloading if you want to keep both versions.</p><button id="export-recovery">Export local draft</button><button id="reload-saved">Reload saved version</button></div>
+      </section>
+    </main>
+    <dialog id="preview-dialog" aria-labelledby="preview-heading"><div class="dialog-header"><h2 id="preview-heading">Draft preview</h2><button data-close aria-label="Close preview">Close</button></div><iframe id="draft-preview" title="Website draft preview" sandbox="allow-same-origin"></iframe></dialog>
+    <dialog id="confirm-dialog" aria-labelledby="confirm-heading"><h2 id="confirm-heading"></h2><p id="confirm-text"></p><form method="dialog"><button value="cancel">Cancel</button><button value="confirm" class="danger">Confirm</button></form></dialog>
+    <script src="../scripts/editor.js"></script>
+  </body>
+</html>

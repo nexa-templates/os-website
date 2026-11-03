@@ -1,0 +1,8 @@
+---
+import SitePage from '../../components/SitePage.astro';
+import NotFound from '../../components/NotFound.astro';
+import { sample } from '../../lib/content.js';
+const page = sample.pages.find(page => page.slug === Astro.params.slug);
+if (!page) Astro.response.status = 404;
+---
+{page ? <SitePage document={sample} page={page} base="/demo" demo /> : <NotFound />}

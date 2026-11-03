@@ -1,0 +1,15 @@
+---
+import { env } from 'cloudflare:workers';
+import SitePage from '../../components/SitePage.astro';
+import { payload, sameOrigin, secretFrom, fail } from '../../lib/storage.js';
+if (Astro.request.method !== 'POST') return fail('Method not allowed.', 405);
+if (!sameOrigin(Astro.request)) return fail('Use this website’s own origin.', 403);
+const secret = secretFrom(Astro.request), id = Astro.params.id;
+if (!secret || !/^[a-f0-9]{32}$/.test(id || '')) return fail('Open a valid editor link.', 401);
+let body;
+try { body = await payload(Astro.request); } catch { return fail('Invalid preview data.'); }
+const result = await env.SITES.getByName(id).owner('POST', '/preview', secret, body);
+if (!result.ok) return result;
+const { document } = await result.json(), page = document.pages.find(page => page.slug === body.slug) || document.pages[0];
+---
+<SitePage document={document} page={page} preview />

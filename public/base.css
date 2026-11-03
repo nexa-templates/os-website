@@ -1,0 +1,3 @@
+/* Keep site styles external so the content security policy needs no inline styles. */
+html{scroll-behavior:smooth}button,input,textarea{-webkit-tap-highlight-color:transparent}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}

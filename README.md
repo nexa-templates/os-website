@@ -2,7 +2,7 @@
 
 A working **Astro** website template with a small page editor, private drafts, publishing, and a private contact enquiry inbox. The example is an original, fictional architecture studio; replace its content with your own.
 
-[Try the website](https://nexa-website-template.nexa-f33.workers.dev/) · [Public template repository](https://github.com/nexaintel2/website)
+[Try the website](https://nexa-website-template.nexa-templates.workers.dev/) · [Public template repository](https://github.com/nexa-templates/website)
 
 ## What works
 
@@ -34,7 +34,7 @@ npm run preview
 
 ## Deploy your own copy
 
-Import `https://github.com/nexaintel2/website.git` into a new Nexa project, retaining it as the upstream template, or use GitHub's “Use this template”. Deploy to your own Cloudflare account:
+Import `https://github.com/nexa-templates/website.git` into a new Nexa project, retaining it as the upstream template, or use GitHub's “Use this template”. Deploy to your own Cloudflare account:
 
 1. Give `wrangler.jsonc` a unique Worker name. Never connect the copy to the public demo's Worker or storage. If multiple accounts are available, set `CLOUDFLARE_ACCOUNT_ID` to your account ID in the deployment environment.
 2. Authenticate Wrangler with your account and run `npm ci && npm run deploy`. The SQLite Durable Object migration creates storage on first use. Cloudflare Workers paid features may be needed for your account.
@@ -43,6 +43,8 @@ Import `https://github.com/nexaintel2/website.git` into a new Nexa project, reta
 5. Connect your custom domain to this Worker in Cloudflare or Nexa. The root sitemap is `/sitemap.xml` when `SITE_ID` is configured. Preview and editor routes remain available.
 
 Astro 7 uses the Cloudflare Vite plugin. `astro build` generates `dist/server/wrangler.json` and `.wrangler/deploy/config.json`; run `wrangler deploy` from the project directory after building. If deploying through an external wrapper, pass the absolute path to **`dist/server/wrangler.json`**, not the unbuilt source entrypoint. No KV, external database, or image service is needed; Astro sessions are disabled.
+
+For Nexa **Build & deploy**, select the connected Worker and production branch, set root `/`, install command `npm ci`, build command `npm run build`, and deploy command `npx --no-install wrangler deploy --name "$NEXA_WORKER_NAME"`. Enable automatic deployments, run the initial build, and verify the intended commit succeeds with a saved deployment and Visit URL. Later production-branch pushes use the same pipeline. Keep project sign-in disabled for the public example; private editing uses its owner capability link.
 
 ## Access, privacy, and limits
 

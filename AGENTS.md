@@ -9,3 +9,5 @@ Use Node >=22.23.4 and npm >=9.6.5; Node 24 is recommended. Run `npm ci`, `npm t
 Astro's build generates `dist/server/wrangler.json`. Deploy using the generated config when invoking Wrangler from outside this repository. Change the Worker name for each customer. `SITE_ID` optionally makes one published site the root website; it is a public site ID, never an owner key. No accounts or other external bindings are required.
 
 The bundled Northline Studio content is fictional. Customize content, illustration, layout, and branding for the customer; do not imply sample projects are real. Keep this repo public and free of credentials, `.dev.vars`, local storage, build output, test artifacts, or customer enquiries. Explain missing capabilities accurately; add external services only when actually configured and tested.
+
+This standalone version uses Cloudflare Access. Production must fail closed without its issuer, audience and application origin. Local sample tests run with PREVIEW_MODE=true; signed-token tests cover the production gate. Never enable preview mode for customer data or live email.

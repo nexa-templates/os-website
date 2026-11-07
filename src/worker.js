@@ -1,3 +1,4 @@
+import { accessUser, accessFailure, needsEditorAccess } from './access.js';
 import { handle } from '@astrojs/cloudflare/handler';
 import { json, fail, token, digest, payload, secretFrom, sameOrigin } from './lib/storage.js';
 export { Website } from './lib/storage.js';
@@ -29,6 +30,7 @@ async function api(request, env) {
 
 export default {
   async fetch(request, env, ctx) {
+    if (env.PREVIEW_MODE !== 'true' && needsEditorAccess(new URL(request.url).pathname)) { try { await accessUser(request, env); } catch (error) { return accessFailure(error); } }
     let response;
     try { response = new URL(request.url).pathname.startsWith('/api/') || new URL(request.url).pathname === '/health' ? await api(request, env) : await handle(request, env, ctx); }
     catch { response = fail('Temporarily unavailable. Please try again.', 503); }

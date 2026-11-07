@@ -16,7 +16,7 @@ async function create() { const result = await request(null, '', 'POST', {}); as
 async function contact(id, body) { return fetch(`${origin}/api/public/${id}/messages`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) }); }
 const editorURL = auth => `${origin}/editor#${new URLSearchParams({ site: auth.id, key: auth.token })}`;
 async function startWorker(extra = []) {
-  server = spawn(process.execPath, ['node_modules/wrangler/bin/wrangler.js', 'dev', '--config', 'dist/server/wrangler.json', '--ip', '127.0.0.1', '--port', '8898', '--persist-to', directory, ...extra], { env: { ...process.env, CI: 'true', WRANGLER_SEND_METRICS: 'false' }, stdio: ['ignore', 'pipe', 'pipe'] });
+  server = spawn(process.execPath, ['node_modules/wrangler/bin/wrangler.js', 'dev', '--var', 'PREVIEW_MODE:true', '--config', 'dist/server/wrangler.json', '--ip', '127.0.0.1', '--port', '8898', '--persist-to', directory, ...extra], { env: { ...process.env, CI: 'true', WRANGLER_SEND_METRICS: 'false' }, stdio: ['ignore', 'pipe', 'pipe'] });
   await new Promise((resolve, reject) => {
     const timeout = setTimeout(() => reject(new Error('Local Worker did not start.')), 45000);
     let output = ''; const receive = chunk => { output += String(chunk); if (String(chunk).includes('Ready on')) { clearTimeout(timeout); resolve(); } };
